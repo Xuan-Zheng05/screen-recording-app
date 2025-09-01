@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Xuan-Zheng-s-workspace-0qik23.us-east-1.xata.sh/db/screen-recording-app",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
