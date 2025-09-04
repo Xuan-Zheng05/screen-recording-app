@@ -1,13 +1,34 @@
 'use client';
 
-import Link from 'next/link'
-import Image from 'next/image'
+import Link from 'next/link';
+import Image from 'next/image';
 import { authClient } from '@/lib/auth-client';
+import { useRouter } from 'next/navigation'; 
+import { useEffect } from 'react'; 
 
 const Page = () => {
+    const router = useRouter();
+    const { data: session } = authClient.useSession();
+
+    useEffect(() => {
+        if (session) {
+            // Redirect them to the homepage.
+            router.push('/');
+        }
+    }, [session, router]); 
+
     const handleSignIn = async () => {
-        return await authClient.signIn.social({ provider: 'google' })
+        return await authClient.signIn.social({ provider: 'google' });
+    };
+
+    if (session) {
+        return (
+            <main style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <p>Redirecting...</p>
+            </main>
+        );
     }
+
     return (
       <main className="sign-in">
         <aside className='testimonial'>
@@ -82,7 +103,7 @@ const Page = () => {
         </aside>
         <div className='overlay'></div>
       </main>
-    )
-}
+    );
+};
 
-export default Page
+export default Page;
