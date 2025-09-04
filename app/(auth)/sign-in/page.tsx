@@ -18,7 +18,12 @@ const Page = () => {
     }, [session, router]); 
 
     const handleSignIn = async () => {
-        return await authClient.signIn.social({ provider: 'google' });
+        return await authClient.signIn.social({
+            provider: 'google',
+            options: {
+                redirectUrl: '/',
+            },
+        });
     };
 
     if (session) {
