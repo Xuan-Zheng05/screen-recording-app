@@ -15,18 +15,15 @@ const arcjetMiddleware = createMiddleware(
     )
 );
 
-// 2. Define the main middleware function
 export async function middleware(request: NextRequest) {
-    // First, run the Arcjet middleware to block bots and other threats
     const arcjetDecision = await arcjetMiddleware(request);
     if (arcjetDecision) {
         return arcjetDecision;
     }
 
-    // Next, perform the authentication check using an Edge-compatible helper
     const session = getSessionCookie(request, {
-        cookieName: "session_token", // Default value, but explicit for clarity
-        cookiePrefix: "better-auth",   // Default value, but explicit for clarity
+        cookieName: "session_token", 
+        cookiePrefix: "better-auth",  
     });
 
     // If there is no session, redirect to the sign-in page
